@@ -1,0 +1,247 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOVA — Nhà của Bình</title><style>
+:root{color-scheme:dark;--bg:#101314;--panel:#1b2021;--line:#303737;--muted:#a3adad;--lime:#d5f58a;--purple:#c8b8f3}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0,#32423266,transparent 50%),var(--bg);color:#f2f5ef;font:15px system-ui,sans-serif}main{max-width:1240px;margin:auto;padding:28px}header,.row{display:flex;align-items:center;justify-content:space-between;gap:12px}header{border-bottom:1px solid var(--line);padding-bottom:24px}.brand{font-size:25px;letter-spacing:5px;font-weight:800}.brand b{color:var(--lime)}.muted,small{color:var(--muted)}.tag{font-size:11px;letter-spacing:2px}.hero{padding:40px 0 28px}h1{font-size:clamp(32px,5vw,56px);letter-spacing:-2px;font-weight:500;margin:12px 0}h1 em{color:var(--lime);font-style:normal}h2{font-size:21px;margin:8px 0}.grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:18px}.card{border:1px solid var(--line);background:linear-gradient(140deg,#242b29,var(--panel));border-radius:24px;padding:24px}.wide{grid-column:span 2}.status{font-size:11px;border:1px solid var(--line);border-radius:40px;padding:7px 11px;color:var(--muted)}.online{color:var(--lime)}.offline{color:#ffaeac}.number{font-size:52px;letter-spacing:-2px;margin:22px 0 12px;font-variant-numeric:tabular-nums}.number small{font-size:17px;letter-spacing:0}.dial{border:8px solid #384135;border-top-color:var(--lime);border-right-color:var(--lime);border-radius:50%;width:190px;height:190px;display:grid;place-content:center;text-align:center;margin:23px auto}.dial .number{margin:0}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}button{font:inherit;color:inherit;background:#303838;border:1px solid #475050;border-radius:12px;padding:12px 16px;cursor:pointer}button:hover{border-color:var(--lime)}button:focus-visible,input:focus-visible{outline:2px solid var(--purple);outline-offset:3px}button:disabled{opacity:.4;cursor:wait}.primary{background:var(--lime);color:#253019;border-color:var(--lime)}.danger{background:#633d38}.roof-control[aria-pressed="true"]{border-color:var(--lime);box-shadow:inset 0 0 0 1px var(--lime)}.actions button{flex:1;font-size:13px}.line{border-top:1px solid var(--line);padding-top:16px;margin-top:18px}.sensors{display:flex;gap:12px;margin-top:22px}.sensors>div{flex:1;background:#ffffff05;border-radius:15px;padding:14px}.sensors strong{display:block;font-size:25px;margin-top:8px}.bar{height:8px;background:#41483c;border-radius:10px;overflow:hidden;margin:18px 0}.bar i{display:block;background:var(--lime);height:100%;width:0;transition:width .3s}.alarm{border-color:#ff9994;background:#382722}.alarm .bar i{background:#ff9994}.icon{font-size:34px;color:var(--purple)}.lights{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}.light{padding:18px 10px;text-align:left;min-height:110px}.light.on{background:#d5f58a19;border-color:var(--lime)}.light strong{display:block;margin:12px 0 5px}.note{font-size:12px;color:var(--muted);line-height:1.7}.fresh{font-size:11px;color:var(--muted);margin-top:16px}.stale{opacity:.6}footer{padding:25px 0;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#43302b;padding:15px 22px;border:1px solid #ce9889;border-radius:15px;max-width:90%;z-index:9}.toast:empty{display:none}dialog{background:var(--panel);color:inherit;border:1px solid var(--line);border-radius:22px;max-width:420px;width:90%;padding:25px}dialog{max-height:90vh;overflow-y:auto}label{display:block;font-size:13px;margin-top:14px}dialog::backdrop{background:#0009}input,select{width:100%;background:#101314;color:white;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}@media(max-width:950px){.grid{grid-template-columns:1fr 1fr}.wide{grid-column:span 2}}@media(max-width:600px){main{padding:18px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.lights{grid-template-columns:1fr 1fr}.hero{padding-top:28px}.tag{font-size:9px}.card{padding:21px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><main><header><div class="brand"><b>◈</b> NOVA</div><div class="tag">BÌNH / SMART HOME</div><button id="settings" aria-label="Cài đặt kết nối">Kết nối ↗</button></header><section class="hero"><span class="tag" style="color:var(--lime)">KHÔNG GIAN CỦA BẠN</span><h1>Mọi thứ trong nhà.<br><em>Trong một chạm.</em></h1><p class="muted">Ba bộ điều khiển · Một không gian chung <span id="clock"></span></p></section><div class="grid">
+<section class="card" id="card1"><div class="row"><span class="tag">01 / KHÍ HẬU</span><span class="status" id="s1">Chờ kết nối</span></div><h2>Điều hòa mô hình</h2><div class="dial"><div class="number"><span id="target">—</span><small> °C</small></div><small>Nhiệt độ đặt</small></div><div class="actions"><button data-node="1" data-action="down">− Giảm</button><button data-node="1" data-action="up">+ Tăng</button></div><div class="row line"><small>Quạt điều hòa</small><strong id="fan">—</strong></div><div class="actions"><button class="primary" data-node="1" data-action="fan_on">Bật</button><button data-node="1" data-action="fan_off">Tắt</button></div><div class="actions"><button data-node="1" data-action="ac_on">Tự động theo nhiệt độ</button><button data-node="1" data-action="ac_off">Tắt tự động</button></div><div class="actions"><button data-node="1" data-action="auto">T phòng − 3°C</button><button data-node="1" data-action="manual">Giữ mức đặt</button></div><p class="note" id="mode">Chưa nhận trạng thái</p><div class="sensors"><div><small>Nhiệt độ</small><strong id="temp">—</strong></div><div><small>Độ ẩm</small><strong id="hum">—</strong></div></div><div class="row line"><small>Quạt riêng</small><strong id="q">—</strong></div><div class="actions"><button data-node="1" data-action="q_on">Bật quạt riêng</button><button data-node="1" data-action="q_off">Tắt</button></div><div class="fresh" id="t1">Chưa có dữ liệu</div></section>
+<section class="card" id="gas"><div class="row"><span class="tag">CHẤT LƯỢNG KHÔNG KHÍ</span><span class="icon">≋</span></div><h2>Giám sát khí gas</h2><div class="number"><span id="gasvalue">—</span><small> /4095</small></div><small>Tín hiệu ADC · MQ-2</small><div class="bar"><i id="gasbar"></i></div><strong id="gasstate">Chưa nhận dữ liệu</strong><div class="row line"><small>Quạt hút gas</small><strong id="exhaust">—</strong></div><div class="row line"><small>Còi cảnh báo</small><strong id="gasbuzzer">—</strong></div><div class="actions"><button class="gas-control" id="gasmute" data-node="1" data-action="gas_mute">Tắt còi đợt này</button><button class="gas-control" id="gasunmute" data-node="1" data-action="gas_unmute">Bật lại còi</button></div><p class="note">Tắt còi vẫn giữ quạt hút và báo gas. Đợt báo gas mới sẽ kêu lại.</p><div class="row line"><small>Ngưỡng bật / tắt</small><strong id="threshold">—</strong></div><p class="note">Cảnh báo và quạt hút được xử lý ngay trên ESP32 số 1. Giá trị ADC chưa được hiệu chuẩn thành ppm.</p><p class="note">Khi mất kết nối, số đang hiển thị là dữ liệu cũ.</p></section>
+<section class="card" id="card2"><div class="row"><span class="tag">02 / RA VÀO</span><span class="status" id="s2">Chờ kết nối</span></div><div class="icon" style="margin-top:28px">▣</div><h2>Cửa thông minh</h2><div class="number" style="font-size:31px" id="door">—</div><p class="note">Trạng thái theo lệnh servo; chưa có cảm biến xác nhận cửa. Có thể khóa ngay bằng phím D trên bàn phím hoặc nút trên board.</p><div class="actions"><button class="primary" data-node="2" data-action="open">Mở cửa · 5 giây</button></div><div class="actions"><button data-node="2" data-action="lock">Khóa ngay</button></div><div class="line"><strong>RFID + Bàn phím</strong><p class="note">Tiếp tục hoạt động độc lập trên board. Đổi mật khẩu, quét và quản lý thẻ bằng mật khẩu cửa hiện tại.</p></div><div class="actions"><button id="doorManage" type="button" disabled>Đổi mật khẩu & quản lý thẻ</button></div><div class="fresh" id="t2">Chưa có dữ liệu</div></section>
+<section class="card wide" id="card3"><div class="row"><div><span class="tag">03 / ÁNH SÁNG</span><h2>Đèn & hiện diện</h2></div><span class="status" id="s3">Chờ kết nối</span></div><div class="row"><div class="number"><span id="count">—</span><small> người trong nhà</small></div><button data-node="3" data-action="reset">Đặt lại về 0</button></div><div class="lights" id="lights"></div><p class="note">Đèn tự đổi theo số người khi bộ đếm thay đổi. Bạn có thể bật/tắt từng đèn bằng tay.</p><div class="fresh" id="t3">Chưa có dữ liệu</div></section>
+<section class="card" id="raincard">
+<span class="tag">MÁI CHE MƯA / GIÀN PHƠI</span>
+<div class="icon" style="margin:20px 0">☂</div>
+<h2 id="rain">Chờ cảm biến</h2>
+<div class="row line"><small>Điều khiển</small><strong id="roofmode">—</strong></div>
+<div class="row line"><small>Vị trí theo lệnh</small><strong id="roofposition">—</strong></div>
+<div class="actions">
+<button class="roof-control primary" id="roofopen" data-node="3" data-action="roof_off">TẮT · 0°</button>
+<button class="roof-control" id="roofclose" data-node="3" data-action="roof_on">BẬT · 90°</button>
+</div>
+
+<p class="note" id="roofnote">BẬT: 90°. TẮT: 0°. Có mưa luôn ưu tiên 90°.</p>
+<div class="row line"><small>Tín hiệu mưa ADC</small><strong id="rainraw">—</strong></div>
+<div class="row line"><small>Góc servo được lệnh</small><strong id="angle">—</strong></div>
+<p class="note">Hai trạng thái: BẬT 90° và TẮT 0°. Có mưa ưu tiên 90°. Vị trí hiển thị theo lệnh, chưa có cảm biến xác nhận.</p>
+</section></div><footer><span>NOVA / Điều khiển trong mạng Wi-Fi nội bộ</span><span id="address"></span></footer></main><div class="toast" role="status" id="toast"></div><dialog id="dialog"><h2>Kết nối bộ trung tâm</h2><p class="note">Địa chỉ web của ESP32 số 3. Để trống nếu bạn đang mở web trực tiếp trên board. Các board tự tìm nhau trong cùng mạng Wi-Fi, không cần nhập IP số 1 và 2.</p><input id="hub" placeholder="http://nova.local" aria-label="Địa chỉ bộ trung tâm"><div class="actions"><button id="save" class="primary">Lưu & kết nối lại</button><button id="cancel">Đóng</button></div><p class="note">Bản trên GitHub Pages cần cầu nối HTTPS hoặc cấu hình trình duyệt phù hợp. Bản nội bộ hoạt động trực tiếp qua ESP32 số 3.</p></dialog><dialog id="doorAdmin" aria-labelledby="adminTitle">
+<div class="row"><h2 id="adminTitle">Quản lý cửa số 2</h2><button id="adminClose" type="button" aria-label="Đóng quản lý cửa">×</button></div>
+<p class="note">Nhập mật khẩu đang mở cửa bằng bàn phím. Thay đổi được lưu trên ESP32 số 2.</p>
+<label for="adminCurrent">Mật khẩu cửa hiện tại</label>
+<input id="adminCurrent" type="password" inputmode="numeric" autocomplete="off" maxlength="16" placeholder="Mật khẩu hiện tại">
+<div class="line"><h2>Đổi mật khẩu</h2>
+<label for="adminNew">Mật khẩu mới · 2–16 chữ số</label>
+<input id="adminNew" type="password" inputmode="numeric" autocomplete="new-password" maxlength="16">
+<label for="adminConfirm">Nhập lại mật khẩu mới</label>
+<input id="adminConfirm" type="password" inputmode="numeric" autocomplete="new-password" maxlength="16">
+<div class="actions"><button id="adminPassword" type="button" class="primary">Lưu mật khẩu mới</button></div></div>
+<div class="line"><h2>Thẻ được phép mở cửa</h2>
+<div class="actions"><button id="adminLoad" type="button">Đọc danh sách thẻ</button></div>
+<label for="adminCards">Chọn thẻ hiện có để xóa hoặc thay</label>
+<select id="adminCards" aria-label="Thẻ RFID đã lưu"><option value="">Chưa đọc danh sách</option></select>
+<p class="note" id="adminCount">Danh sách chỉ hiển thị sau khi xác thực.</p>
+<label for="adminUid">Mã thẻ mới · UID 4 byte</label>
+<input id="adminUid" type="text" autocomplete="off" maxlength="24" placeholder="Ví dụ: 5A231907">
+<div class="actions"><button id="adminScan" type="button">Quét thẻ tại cửa</button><button id="adminAdd" type="button" class="primary">Thêm thẻ</button></div>
+<div class="actions"><button id="adminReplace" type="button">Thay thẻ đang chọn</button><button id="adminRemove" type="button" class="danger">Xóa thẻ đang chọn</button></div>
+<p class="note">Bấm Quét thẻ, đưa thẻ vào đầu đọc trong 20 giây rồi bấm Thêm hoặc Thay thẻ. Lúc quét đăng ký, thẻ không mở cửa.</p></div>
+<p id="adminStatus" role="status" aria-live="polite" class="note">Chưa xác thực.</p>
+</dialog>
+<script>
+const $=id=>document.getElementById(id),online={1:false,2:false,3:false},busy={1:false,2:false,3:false};let base='';try{if(location.protocol!=='http:'||location.hostname==='localhost')base=(localStorage.getItem('novaHub')||'').replace(/\/+$/,'')}catch(e){}let notice;
+function toast(s){$('toast').textContent=s;clearTimeout(notice);notice=setTimeout(()=>$('toast').textContent='',5000)}
+for(let i=0;i<4;i++){$('lights').insertAdjacentHTML('beforeend',`<button class="light" id="l${i}" data-node="3" disabled><span>☀</span><strong>Đèn ${i+1}</strong><small>Chưa có dữ liệu</small></button>`)}
+function mark(n,on){online[n]=on;$('s'+n).textContent=on?'● Trực tuyến':'● Mất kết nối';$('s'+n).className='status '+(on?'online':'offline');document.querySelectorAll(`[data-node="${n}"]`).forEach(b=>b.disabled=!on||busy[n]);if(n===1)document.querySelectorAll('.gas-control').forEach(b=>b.disabled=!on||busy[1]||!gasSupported);if(n===3){$('roofopen').disabled=!on||busy[3]||!roofSupported||roofForced90;$('roofclose').disabled=!on||busy[3]||!roofSupported;}if(n===2)$('doorManage').disabled=!on||busy[2]||!doorAdminSupported;if(!on){$('t'+n).textContent='Mất kết nối · dữ liệu hiển thị có thể đã cũ';if(n===1){$('gasstate').textContent='Mất kết nối · chưa biết trạng thái gas';$('gas').classList.add('stale')}if(n===3)$('raincard').classList.add('stale')}}
+function render(n,d){mark(n,true);$('t'+n).textContent='Cập nhật '+new Date().toLocaleTimeString('vi-VN');if(n===1){$('target').textContent=d.target;$('temp').textContent=d.valid?d.temp+'°C':'Lỗi DHT';$('hum').textContent=d.valid?d.hum+'%':'—';$('fan').textContent=d.fan?'Đang bật':'Đang tắt';$('q').textContent=d.q_on?'Đang bật':'Đang tắt';$('mode').textContent=d.ac?(d.auto?'Tự động: T phòng − 3°C':'Tự động theo nhiệt độ đặt'):'Điều khiển quạt thủ công';$('gasvalue').textContent=d.gas_raw??'—';$('gasbar').style.width=(d.gas_percent||0)+'%';$('gasstate').textContent=d.gas_valid===false?'Chưa đọc được cảm biến gas':(d.gas?'⚠ Phát hiện vượt ngưỡng':'Tín hiệu dưới ngưỡng báo');$('gas').classList.toggle('alarm',!!d.gas);$('gas').classList.remove('stale');$('exhaust').textContent=(d.gas_fan??d.gas)?'Đang bật':'Đang tắt';$('gasbuzzer').textContent=d.gas_muted?'Đã tắt còi đợt này':(d.buzzer_on?'Đang kêu':'Đang tắt');gasSupported=d.gas_mute_control===true;document.querySelectorAll('.gas-control').forEach(b=>b.disabled=!gasSupported||busy[1]);$('threshold').textContent=d.gas_threshold+' / '+d.gas_off_threshold}else if(n===2){doorAdminSupported=d.door_admin===true;const moving=!!d.servo_moving,ms=Number(d.auto_close_ms)||0;$('door').textContent=d.open?(moving?'Đang mở…':(ms>0?'Đã mở · tự khóa sau '+Math.ceil(ms/1000)+'s':'Đã lệnh mở')):(moving?'Đang đóng…':'Đã lệnh khóa');$('doorManage').disabled=!doorAdminSupported||busy[2]}else{$('count').textContent=d.count;$('rain').textContent=d.rain_valid===false?'Lỗi cảm biến mưa':(d.rain?'Cảm biến: có mưa':'Cảm biến: đang khô');
+$('rainraw').textContent=d.rain_raw??'—';
+const supported=d.roof_switch_control===true, angle=d.roof_target??d.angle;
+roofSupported=supported;roofForced90=d.roof_forced90!==false;
+$('angle').textContent=(angle===0||angle===90)?angle+'°':'—';
+$('roofmode').textContent=supported?(roofForced90?'Ưu tiên 90°':'Bật / Tắt'):'Cần cập nhật main.py';
+$('roofposition').textContent=supported?((d.roof_moving?'Đang chuyển → ':'')+(angle===90?'BẬT · 90°':'TẮT · 0°')):'—';
+$('roofnote').textContent=!supported?'Nạp main.py FAST đi kèm web này và Reset ESP32 số 3.':(d.rain_valid===false?'Chưa đọc được cảm biến: giữ 90°.':(d.rain?'Đang mưa: giữ 90°, tạm khóa nút TẮT.':'BẬT: 90°. TẮT: 0°. Có mưa ưu tiên 90°.'));
+for(const [id,pressed] of [['roofopen',angle===0],['roofclose',angle===90]]){
+ $(id).disabled=!supported||busy[3]||(id==='roofopen'&&roofForced90);
+ $(id).setAttribute('aria-pressed',String(supported&&pressed));
+}
+$('raincard').classList.remove('stale');d.leds.forEach((v,i)=>{let b=$('l'+i);b.classList.toggle('on',!!v);b.querySelector('small').textContent=v?'Đang bật':'Đang tắt';b.dataset.action='led'+i+(v?'0':'1')})}}
+// Doc tung board doc lap, khong xep hang toan bo web.
+let roofSupported=false,roofForced90=true,gasSupported=false,doorAdminSupported=false;
+const reading={1:false,2:false,3:false}, failures={1:0,2:0,3:0}, generation={1:0,2:0,3:0};
+const controllers={1:null,2:null,3:null};
+async function request(path,method='GET',payload,externalSignal){
+ const c=new AbortController(),timer=setTimeout(()=>c.abort(),method==='POST'?5500:2300);
+ const cancel=()=>c.abort();
+ if(externalSignal){externalSignal.addEventListener('abort',cancel,{once:true});if(externalSignal.aborted)c.abort()}
+ try{
+  const options={method,cache:'no-store',signal:c.signal};
+  if(payload!==undefined){options.headers={'Content-Type':'application/json'};options.body=JSON.stringify(payload)}
+  const r=await fetch(base+path,options);
+  let data;try{data=await r.json()}catch(e){throw Error('Phản hồi không đúng JSON. Kiểm tra IP bộ trung tâm.')}
+  if(!r.ok){const error=Error(data.error||('HTTP '+r.status));error.status=r.status;throw error}
+  return data;
+ }finally{clearTimeout(timer);if(externalSignal)externalSignal.removeEventListener('abort',cancel)}
+}
+function readableError(e){return e.name==='AbortError'?'Hết thời gian chờ; chưa xác nhận kết quả lệnh.':(e instanceof TypeError?'Không kết nối được ESP32. Kiểm tra Wi-Fi và mở web trực tiếp bằng HTTP trên board.':e.message)}
+async function refresh(n){
+ if(busy[n]||reading[n])return;
+ const version=generation[n],controller=new AbortController();
+ controllers[n]=controller;reading[n]=true;
+ try{
+  const d=await request('/api/'+n,'GET',undefined,controller.signal);
+  if(version!==generation[n]||busy[n])return;
+  render(n,d);failures[n]=0;
+ }catch(e){
+  if(version!==generation[n]||busy[n])return;
+  failures[n]++;
+  mark(n,false);
+  if(n===3)$('roofnote').textContent=readableError(e);
+ }finally{
+  reading[n]=false;
+  if(controllers[n]===controller)controllers[n]=null;
+ }
+}
+async function poll(){
+ const versions={...generation};
+ try{
+  const snapshot=await request('/api/all');
+  if(!snapshot.nodes)throw Error('Cần nạp main.py trung tâm bản ALL FAST.');
+  for(const n of [3,1,2]){
+   if(busy[n]||versions[n]!==generation[n])continue;
+   const entry=snapshot.nodes[String(n)];
+   if(entry&&entry.online&&entry.data){
+    render(n,entry.data);
+    $('t'+n).textContent='Nhận '+new Date().toLocaleTimeString('vi-VN')+(n===3?'':' · Dữ liệu cách đây '+(entry.age_ms/1000).toFixed(1)+'s');
+   }else mark(n,false);
+  }
+ }catch(e){
+  for(const n of [1,2,3])if(!busy[n]&&versions[n]===generation[n])mark(n,false);
+  $('roofnote').textContent=readableError(e);
+ }finally{setTimeout(poll,600)}
+}
+document.querySelectorAll('[data-node]').forEach(b=>{b.disabled=true;b.onclick=async()=>{let n=Number(b.dataset.node),a=b.dataset.action;if(busy[n])return;if(n===2&&a==='open'&&!confirm('Mở cửa trong 5 giây?'))return;if(n===3&&a==='reset'&&!confirm('Đặt số người về 0 và tắt cả 4 đèn?'))return;generation[n]++;if(controllers[n])controllers[n].abort();busy[n]=true;mark(n,online[n]);try{let d=await request('/cmd/'+n+'/'+a,'POST');render(n,d);toast(n===3&&a==='roof_off'&&d.roof_forced90?'Đang ưu tiên 90° do mưa hoặc chưa có số đo hợp lệ.':'Board '+n+' đã nhận lệnh.')}catch(e){if(!e.status||e.status>=500)mark(n,false);toast(readableError(e)+' Kiểm tra trạng thái trước khi thử lại.')}finally{busy[n]=false;mark(n,online[n]);if(n===3&&!roofSupported)document.querySelectorAll('.roof-control').forEach(x=>x.disabled=true)}}});
+// Passwords are held only in dialog fields; never stored in localStorage or URLs.
+let adminBusy=false,scanTimer=null,adminSession=0;
+const adminButtons=['adminPassword','adminLoad','adminScan','adminAdd','adminReplace','adminRemove'];
+const adminErrors={
+ 'Wrong current password':'Mật khẩu cửa hiện tại chưa đúng.',
+ 'Control key rejected':'CONTROL_KEY của ESP32 số 2 và số 3 chưa khớp.',
+ 'Password must contain 2 to 16 digits':'Mật khẩu mới cần từ 2 đến 16 chữ số.',
+ 'UID must contain 8 hexadecimal digits':'UID cần đúng 8 ký tự 0–9, A–F.',
+ 'Card not found':'Thẻ được chọn không còn trong danh sách. Hãy đọc lại danh sách.',
+ 'Card already exists':'Thẻ mới đã có trong danh sách.',
+ 'RFID list full':'Danh sách đã đủ 40 thẻ.',
+ 'RFID reader unavailable':'Đầu đọc RFID chưa hoạt động. Kiểm tra nguồn và dây.',
+ 'Settings write failed':'Chưa xác nhận lưu được bộ nhớ. Hãy kiểm tra lại trạng thái.',
+ 'Board offline or timeout':'Chưa nhận được phản hồi từ cửa. Kiểm tra kết nối trước khi thử lại.',
+ 'Unknown command':'Cần cập nhật cả main.py số 2 và main.py số 3 trong gói mới.'
+};
+function adminMessage(text){$('adminStatus').textContent=text}
+function stopScan(){if(scanTimer!==null)clearTimeout(scanTimer);scanTimer=null}
+function setAdminBusy(value){
+ adminBusy=value;
+ for(const id of adminButtons)$(id).disabled=value;
+ for(const id of ['adminCurrent','adminNew','adminConfirm','adminUid','adminCards'])$(id).disabled=value;
+}
+function fillCards(data){
+ if(!Array.isArray(data.rfids))return;
+ const select=$('adminCards'),selected=select.value;
+ select.replaceChildren();
+ for(const uid of data.rfids){const option=document.createElement('option');option.value=uid;option.textContent=uid;select.appendChild(option)}
+ if(data.rfids.includes(selected))select.value=selected;
+ if(!data.rfids.length){const option=document.createElement('option');option.value='';option.textContent='Chưa có thẻ';select.appendChild(option)}
+ $('adminCount').textContent=data.rfids.length+' / '+data.max_rfids+' thẻ được phép mở cửa.';
+}
+function readUid(){
+ const uid=$('adminUid').value.replace(/[ :\-]/g,'').toUpperCase();
+ if(!/^[0-9A-F]{8}$/.test(uid))throw Error('Nhập UID gồm 8 ký tự 0–9, A–F hoặc bấm Quét thẻ.');
+ return uid;
+}
+async function adminCall(action,fields={},quiet=false){
+ if(adminBusy)throw Error('Đang xử lý thao tác trước.');
+ const current=$('adminCurrent').value;
+ if(!/^[0-9]{2,16}$/.test(current))throw Error('Nhập mật khẩu cửa hiện tại trước.');
+ const session=adminSession;
+ generation[2]++;if(controllers[2])controllers[2].abort();setAdminBusy(true);busy[2]=true;mark(2,online[2]);
+ if(!quiet)adminMessage('Đang chờ cửa xác nhận…');
+ try{
+  const data=await request('/cmd/2/'+action,'POST',{...fields,current_password:current});
+  if(session!==adminSession)throw Error('Đã đóng phiên quản lý.');
+  fillCards(data);
+  return data;
+ }finally{
+  setAdminBusy(false);busy[2]=false;mark(2,online[2]);
+ }
+}
+function adminError(error){
+ stopScan();
+ adminMessage(error.name==='AbortError'?'Hết thời gian chờ. Lệnh có thể đã được thực hiện; kiểm tra lại trước khi thử tiếp.':(adminErrors[error.message]||error.message));
+}
+function showScan(data){
+ if(data.scan_status==='captured'){
+  $('adminUid').value=data.captured_uid||'';
+  adminMessage('Đã quét thẻ '+(data.captured_uid||'')+'. Bấm Thêm thẻ hoặc Thay thẻ để lưu.');
+  stopScan();return false;
+ }
+ if(data.scan_status==='timeout'){
+  adminMessage('Đã hết 20 giây chờ. Bấm Quét thẻ để thử lại.');stopScan();return false;
+ }
+ if(data.scan_status!=='scanning'){
+  adminMessage('Chế độ quét đã kết thúc.');stopScan();return false;
+ }
+ adminMessage('Đưa thẻ vào đầu đọc cửa số 2 trong 20 giây…');return true;
+}
+function scheduleScan(session,attempt=0){
+ stopScan();
+ scanTimer=setTimeout(async()=>{
+  scanTimer=null;
+  if(session!==adminSession||!$('doorAdmin').open)return;
+  if(attempt>=30){adminMessage('Kết thúc chờ quét. Có thể bấm Đọc danh sách để kiểm tra.');return}
+  if(adminBusy){scheduleScan(session,attempt+1);return}
+  try{const data=await adminCall('rfid_status',{},true);if(showScan(data))scheduleScan(session,attempt+1)}catch(e){adminError(e)}
+ },700);
+}
+$('doorManage').onclick=()=>{
+ adminSession++;stopScan();
+ $('doorAdmin').showModal();$('adminCurrent').focus();
+ adminMessage('Nhập mật khẩu hiện tại rồi chọn thao tác.');
+};
+$('adminClose').onclick=()=>$('doorAdmin').close();
+$('doorAdmin').addEventListener('close',()=>{
+ adminSession++;stopScan();
+ for(const id of ['adminCurrent','adminNew','adminConfirm','adminUid'])$(id).value='';
+ $('adminCards').replaceChildren();$('adminCount').textContent='Danh sách chỉ hiển thị sau khi xác thực.';
+});
+$('adminPassword').onclick=async()=>{
+ stopScan();
+ const value=$('adminNew').value;
+ if(!/^[0-9]{2,16}$/.test(value)){adminMessage('Mật khẩu mới cần từ 2 đến 16 chữ số.');return}
+ if(value!==$('adminConfirm').value){adminMessage('Hai lần nhập mật khẩu mới chưa giống nhau.');return}
+ try{
+  await adminCall('password',{new_password:value});
+  $('adminCurrent').value='';$('adminNew').value='';$('adminConfirm').value='';
+  $('adminCards').replaceChildren();$('adminCount').textContent='Nhập mật khẩu mới để tiếp tục quản lý thẻ.';
+  adminMessage('Đã lưu mật khẩu mới. Từ giờ dùng mật khẩu mới để mở cửa và quản lý thẻ.');
+ }catch(e){adminError(e)}
+};
+$('adminLoad').onclick=async()=>{
+ stopScan();try{await adminCall('rfid_list');adminMessage('Đã đọc danh sách thẻ.')}catch(e){adminError(e)}
+};
+$('adminScan').onclick=async()=>{
+ stopScan();try{const data=await adminCall('rfid_scan');if(showScan(data))scheduleScan(adminSession)}catch(e){adminError(e)}
+};
+$('adminAdd').onclick=async()=>{
+ stopScan();try{await adminCall('rfid_add',{uid:readUid()});adminMessage('Đã lưu thẻ. Thẻ có thể mở cửa sau khi bỏ ra và quét lại.')}catch(e){adminError(e)}
+};
+$('adminRemove').onclick=async()=>{
+ stopScan();const uid=$('adminCards').value;
+ if(!uid){adminMessage('Đọc danh sách rồi chọn thẻ cần xóa.');return}
+ if(!confirm('Xóa quyền mở cửa của thẻ '+uid+'?'))return;
+ try{await adminCall('rfid_remove',{uid});adminMessage('Đã xóa quyền mở cửa của thẻ '+uid+'.')}catch(e){adminError(e)}
+};
+$('adminReplace').onclick=async()=>{
+ stopScan();const old=$('adminCards').value;
+ if(!old){adminMessage('Đọc danh sách rồi chọn thẻ cũ cần thay.');return}
+ try{
+  const uid=readUid();if(!confirm('Thay thẻ '+old+' bằng '+uid+'?'))return;
+  await adminCall('rfid_replace',{old_uid:old,uid});adminMessage('Đã thay thẻ và lưu bộ nhớ.');
+ }catch(e){adminError(e)}
+};
+$('settings').onclick=()=>{$('hub').value=base;$('dialog').showModal()};$('cancel').onclick=()=>$('dialog').close();$('save').onclick=()=>{let value=$('hub').value.trim().replace(/\/+$/,'');if(value){try{let u=new URL(value);if(!['http:','https:'].includes(u.protocol)||u.username||u.password||u.pathname!=='/'||u.search||u.hash)throw Error()}catch(e){toast('Nhập địa chỉ dạng http://192.168.137.147');return}}localStorage.setItem('novaHub',value);location.reload()};$('address').textContent=base||location.host;setInterval(()=>$('clock').textContent=' · '+new Date().toLocaleTimeString('vi-VN'),1000);poll();
+</script></body></html>
